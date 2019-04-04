@@ -547,14 +547,27 @@ LocationManager.prototype.appendToDeviceLog = function(message) {
 	return this._promisedExec('appendToDeviceLog', [message], []);
 };
 
-var locationManager = new LocationManager();
-locationManager.Regions = Regions;
-locationManager.Region = Region;
-locationManager.CircularRegion = CircularRegion;
-locationManager.BeaconRegion = BeaconRegion;
-locationManager.Delegate = Delegate;
+LocationManager.init = function() {
+	var locationManager = new LocationManager();
+	locationManager.Regions = Regions;
+	locationManager.Region = Region;
+	locationManager.CircularRegion = CircularRegion;
+	locationManager.BeaconRegion = BeaconRegion;
+	locationManager.Delegate = Delegate;
+	return locationManager;
+}
 
 module.exports.LocationManager = LocationManager;
-module.exports.locationManager = locationManager;
+
+if (ionic.Platform.isIOS()) {
+	var locationManager = new LocationManager();
+	locationManager.Regions = Regions;
+	locationManager.Region = Region;
+	locationManager.CircularRegion = CircularRegion;
+	locationManager.BeaconRegion = BeaconRegion;
+	locationManager.Delegate = Delegate;
+
+	module.exports.locationManager = locationManager;
+}
 
 
