@@ -31,12 +31,11 @@
     [self initEventQueue];
     [self pauseEventPropagationToDom]; // Before the DOM is loaded we'll just keep collecting the events and fire them later.
 
-    [self initLocationManager];
-    [self initPeripheralManager];
+//    [self initLocationManager];
+//    [self initPeripheralManager];
     
     self.debugLogEnabled = true;
     self.debugNotificationsEnabled = false;
-    
 }
 
 - (void) initLocationManager {
@@ -217,6 +216,16 @@
 
 
 # pragma mark Javascript Plugin API
+
+- (void)setup:(CDVInvokedUrlCommand*)command {
+    [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand * command) {
+
+        [self initLocationManager];
+        [self initPeripheralManager];
+
+        return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } :command];
+}
 
 - (void)onDomDelegateReady:(CDVInvokedUrlCommand*)command {
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand * command) {

@@ -205,6 +205,10 @@ LocationManager.prototype._promisedExec = function (method, commandArgs, preProc
 	return d.promise;
 };
 
+LocationManager.prototype.setup = function() {
+	return this._promisedExec('setup', [], []);
+};
+
 /**
  * Signals the native layer that the client side is ready to consume messages.
  * Readiness here means that it has a {Delegate} set by the consumer javascript

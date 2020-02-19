@@ -50,6 +50,8 @@ const int CDV_LOCATION_MANAGER_INPUT_PARSE_ERROR = 100;
 @property (retain) NSDictionary *advertisedPeripheralData;
 
 
+- (void)setup:(CDVInvokedUrlCommand*)command;
+
 /*
  *  onDomDelegateReady:
  *

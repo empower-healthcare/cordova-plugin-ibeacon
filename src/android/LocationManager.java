@@ -139,7 +139,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
         RunningAverageRssiFilter.setSampleExpirationMilliseconds(sampleExpirationMilliseconds);
         RangedBeacon.setSampleExpirationMilliseconds(sampleExpirationMilliseconds);
 
-        initBluetoothListener();
+//        initBluetoothListener();
         initEventQueue();
         pauseEventPropagationToDom(); // Before the DOM is loaded we'll just keep collecting the events and fire them later.
 
@@ -147,12 +147,12 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 
         debugEnabled = true;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            initBluetoothAdapter();
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//            initBluetoothAdapter();
+//        }
         //TODO AddObserver when page loaded
 
-        tryToRequestMarshmallowLocationPermission();
+//        tryToRequestMarshmallowLocationPermission();
     }
 
     /**
@@ -182,7 +182,9 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
      * @return True if the action was valid, false if not.
      */
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("onDomDelegateReady")) {
+        if (action.equals("setup")) {
+            setup(callbackContext);
+        } else if (action.equals("onDomDelegateReady")) {
             onDomDelegateReady(callbackContext);
         } else if (action.equals("disableDebugNotifications")) {
             disableDebugNotifications(callbackContext);
@@ -665,6 +667,26 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     //--------------------------------------------------------------------------
     // PLUGIN METHODS
     //--------------------------------------------------------------------------
+
+    private void setup(CallbackContext callbackContext) {
+
+        _handleCallSafely(callbackContext, new ILocationManagerCommand() {
+
+            @Override
+            public PluginResult run() {
+
+                initBluetoothListener();
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                   initBluetoothAdapter();
+                }
+
+                tryToRequestMarshmallowLocationPermission();
+
+                return new PluginResult(PluginResult.Status.OK);
+            }
+        });
+    }
 
     /*
      *  onDomDelegateReady:
