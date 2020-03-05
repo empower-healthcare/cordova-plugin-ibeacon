@@ -147,9 +147,9 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 
         debugEnabled = true;
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-//            initBluetoothAdapter();
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            initBluetoothAdapter();
+        }
         //TODO AddObserver when page loaded
 
 //        tryToRequestMarshmallowLocationPermission();
@@ -677,9 +677,9 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 
                 initBluetoothListener();
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                   initBluetoothAdapter();
-                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                    initBluetoothAdapter();
+//                }
 
                 tryToRequestMarshmallowLocationPermission();
 
