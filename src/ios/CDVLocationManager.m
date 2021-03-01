@@ -69,7 +69,7 @@
     if (self.queue != nil) {
         return;
     }
-    [[self getLogger] debugLog:@"WARNING event queue should not be null."];
+//    [[self getLogger] debugLog:@"WARNING event queue should not be null."];
     self.queue = [NSOperationQueue new];
 }
 
@@ -90,7 +90,7 @@
     
     [self.commandDelegate runInBackground:^{
         
-        [[self getLogger] debugLog:@"didDetermineState: %@ for region: %@", [self regionStateAsString:state], region];
+//        [[self getLogger] debugLog:@"didDetermineState: %@ for region: %@", [self regionStateAsString:state], region];
         
         NSMutableDictionary* dict = [NSMutableDictionary new];
         
@@ -110,8 +110,8 @@
         
         [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
             
-            [[self getLogger] debugLog:@"didEnterRegion: %@", region.identifier];
-            [[self getLogger] debugNotification:@"didEnterRegion: %@", region.identifier];
+//            [[self getLogger] debugLog:@"didEnterRegion: %@", region.identifier];
+//            [[self getLogger] debugNotification:@"didEnterRegion: %@", region.identifier];
             
             NSMutableDictionary* dict = [NSMutableDictionary new];
             [dict setObject:[self jsCallbackNameForSelector:(_cmd)] forKey:@"eventType"];
@@ -131,8 +131,8 @@
         
         [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
             
-            [[self getLogger] debugLog:@"didExitRegion: %@", region.identifier];
-            [[self getLogger] debugNotification:@"didExitRegion: %@", region.identifier];
+//            [[self getLogger] debugLog:@"didExitRegion: %@", region.identifier];
+//            [[self getLogger] debugNotification:@"didExitRegion: %@", region.identifier];
             
             NSMutableDictionary* dict = [NSMutableDictionary new];
             [dict setObject:[self jsCallbackNameForSelector:(_cmd)] forKey:@"eventType"];
@@ -152,7 +152,7 @@
         
         [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
             
-            [[self getLogger] debugLog:@"didStartMonitoringForRegion: %@", region];
+//            [[self getLogger] debugLog:@"didStartMonitoringForRegion: %@", region];
             
             NSMutableDictionary* dict = [NSMutableDictionary new];
             [dict setObject:[self jsCallbackNameForSelector :_cmd] forKey:@"eventType"];
@@ -172,7 +172,7 @@
         
         [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
             
-            [[self getLogger] debugLog:@"monitoringDidFailForRegion: %@", error.description];
+//            [[self getLogger] debugLog:@"monitoringDidFailForRegion: %@", error.description];
             
             NSMutableDictionary* dict = [NSMutableDictionary new];
             [dict setObject:[self jsCallbackNameForSelector :_cmd] forKey:@"eventType"];
@@ -199,7 +199,7 @@
         
         [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
             
-            [[self getLogger] debugLog:@"didRangeBeacons: %@", beacons];
+//            [[self getLogger] debugLog:@"didRangeBeacons: %@", beacons];
             
             NSMutableDictionary* dict = [[NSMutableDictionary alloc]init];
             [dict setObject:[self jsCallbackNameForSelector :_cmd] forKey:@"eventType"];
@@ -241,7 +241,7 @@
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand * command) {
 
         self.debugLogEnabled = false;
-        [self.logger setDebugLogEnabled:false];
+//        [self.logger setDebugLogEnabled:false];
         
         return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } :command];
@@ -252,7 +252,7 @@
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand * command) {
         
         self.debugLogEnabled = true;
-        [self.logger setDebugLogEnabled:true];
+//        [self.logger setDebugLogEnabled:true];
         
         return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } :command];
@@ -262,7 +262,7 @@
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand * command) {
         
         self.debugNotificationsEnabled = false;
-        [self.logger setDebugNotificationsEnabled:false];
+//        [self.logger setDebugNotificationsEnabled:false];
         
         return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } :command];
@@ -272,7 +272,7 @@
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand * command) {
 
         self.debugNotificationsEnabled = true;
-        [self.logger setDebugNotificationsEnabled:true];
+//        [self.logger setDebugNotificationsEnabled:true];
         
         return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } :command];
@@ -283,7 +283,7 @@
         
         NSString* message = [command.arguments objectAtIndex:0];
         if (message != nil && [message length] > 0) {
-            [[self getLogger] debugLog:[@"[DOM] " stringByAppendingString:message]];
+//            [[self getLogger] debugLog:[@"[DOM] " stringByAppendingString:message]];
             return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
         } else {
             return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
@@ -298,7 +298,7 @@
         CLRegion* region = [self parseRegion:command returningError:&error];
         if (region == nil) {
             if (error != nil) {
-                [[self getLogger] debugLog:@"ERROR %@", error];
+//                [[self getLogger] debugLog:@"ERROR %@", error];
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:error.userInfo];
             } else {
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unknown error."];
@@ -320,7 +320,7 @@
         CLRegion* region = [self parseRegion:command returningError:&error];
         if (region == nil) {
             if (error != nil) {
-                [[self getLogger] debugLog:@"ERROR %@", error];
+//                [[self getLogger] debugLog:@"ERROR %@", error];
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:error.userInfo];
             } else {
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unknown error."];
@@ -342,7 +342,7 @@
         CLRegion* region = [self parseRegion:command returningError:&error];
         if (region == nil) {
             if (error != nil) {
-                [[self getLogger] debugLog:@"ERROR %@", error];
+//                [[self getLogger] debugLog:@"ERROR %@", error];
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:error.userInfo];
             } else {
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unknown error."];
@@ -364,7 +364,7 @@
         CLRegion* region = [self parseRegion:command returningError:&error];
         if (region == nil) {
             if (error != nil) {
-                [[self getLogger] debugLog:@"ERROR %@", error];
+//                [[self getLogger] debugLog:@"ERROR %@", error];
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:error.userInfo];
             } else {
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unknown error."];
@@ -386,7 +386,7 @@
         CLRegion* region = [self parseRegion:command returningError:&error];
         if (region == nil) {
             if (error != nil) {
-                [[self getLogger] debugLog:@"ERROR %@", error];
+//                [[self getLogger] debugLog:@"ERROR %@", error];
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:error.userInfo];
             } else {
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unknown error."];
@@ -460,8 +460,8 @@
          
          NSString *statusString = [self authorizationStatusAsString:status];
          
-         [[self getLogger] debugLog:@"didChangeAuthorizationStatus: %d => %@", status, statusString];
-         [[self getLogger] debugNotification:@"didChangeAuthorizationStatus: %d => %@", status, statusString];
+//         [[self getLogger] debugLog:@"didChangeAuthorizationStatus: %d => %@", status, statusString];
+//         [[self getLogger] debugNotification:@"didChangeAuthorizationStatus: %d => %@", status, statusString];
          
          NSMutableDictionary* dict = [NSMutableDictionary new];
          [dict setObject:[self jsCallbackNameForSelector:(_cmd)] forKey:@"eventType"];
@@ -491,7 +491,7 @@
         NSArray* arrayOfRegions;
         
         if ([self isBelowIos7]) {
-            [[self getLogger] debugLog:@"WARNING Ranging is an iOS 7+ feature."];
+//            [[self getLogger] debugLog:@"WARNING Ranging is an iOS 7+ feature."];
             arrayOfRegions = [NSArray new];
         } else {
             arrayOfRegions = [self mapsOfRegions:self.locationManager.rangedRegions];
@@ -508,7 +508,7 @@
         BOOL isRangingAvailable;
         
         if ([self isBelowIos7]) {
-            [[self getLogger] debugLog:@"WARNING Ranging is an iOS 7+ feature."];
+//            [[self getLogger] debugLog:@"WARNING Ranging is an iOS 7+ feature."];
             isRangingAvailable = false;
         } else {
             isRangingAvailable = [CLLocationManager isRangingAvailable];
@@ -522,7 +522,7 @@
 - (void)registerDelegateCallbackId:(CDVInvokedUrlCommand*)command {
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand* command) {
         
-        [[self getLogger] debugLog:@"Registering delegate callback ID: %@", command.callbackId];
+//        [[self getLogger] debugLog:@"Registering delegate callback ID: %@", command.callbackId];
         self.delegateCallbackId = command.callbackId;
 
         CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -542,12 +542,12 @@
             
             NSString *stateName = [self peripherialStateAsString:peripheral.state];
             
-            [[self getLogger] debugLog:@"peripheralManagerDidUpdateState: %@",stateName];
-            [[self getLogger] debugNotification:@"peripheralManagerDidUpdateState: %@",stateName];
+//            [[self getLogger] debugLog:@"peripheralManagerDidUpdateState: %@",stateName];
+//            [[self getLogger] debugNotification:@"peripheralManagerDidUpdateState: %@",stateName];
             
             //Start advertising is a beacon definition is already set
             if (_advertisedPeripheralData && peripheral.state == CBPeripheralManagerStatePoweredOn) {
-                [[self getLogger] debugLog:@"Start advertising."];
+//                [[self getLogger] debugLog:@"Start advertising."];
                 [peripheral startAdvertising:_advertisedPeripheralData];
             }
             
@@ -563,7 +563,7 @@
     }];
     
     NSString *stateName = [self peripherialStateAsString:peripheral.state];
-    [[self getLogger] debugLog:@"peripheralManagerDidUpdateState() state: %@", stateName];
+//    [[self getLogger] debugLog:@"peripheralManagerDidUpdateState() state: %@", stateName];
     
     if (peripheral.state != CBPeripheralManagerStatePoweredOn) {
         return;
@@ -584,12 +584,12 @@
             [dict setObject:stateName forKey:@"state"];
             
             if (error) {
-                [[self getLogger] debugLog:@"Error Advertising: %@", [error localizedDescription]];
-                [[self getLogger] debugNotification:@"Error Advertising: %@", [error localizedDescription]];
+//                [[self getLogger] debugLog:@"Error Advertising: %@", [error localizedDescription]];
+//                [[self getLogger] debugNotification:@"Error Advertising: %@", [error localizedDescription]];
                 [dict setObject:[error localizedDescription] forKey:@"error"];
             } else {
-                [[self getLogger] debugLog:@"peripheralManagerDidStartAdvertising"];
-                [[self getLogger] debugNotification:@"peripheralManagerDidStartAdvertising"];
+//                [[self getLogger] debugLog:@"peripheralManagerDidStartAdvertising"];
+//                [[self getLogger] debugNotification:@"peripheralManagerDidStartAdvertising"];
                 [dict setObject:[self mapOfRegion:_advertisedBeaconRegion] forKey:@"region"];
             }
             
@@ -635,13 +635,13 @@
         CLRegion* region = [self parseRegion:command returningError:&error];
         if (region == nil) {
             if (error != nil) {
-                [[self getLogger] debugLog:@"ERROR %@", error];
+//                [[self getLogger] debugLog:@"ERROR %@", error];
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:error.userInfo];
             } else {
                 return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Unknown error."];
             }
         } else if (![region isKindOfClass:[CLBeaconRegion class]]) {
-            [[self getLogger] debugLog:@"ERROR Cannot advertise with that Region. Must be a Beacon"];
+//            [[self getLogger] debugLog:@"ERROR Cannot advertise with that Region. Must be a Beacon"];
             return [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Cannot advertise with that Region. Must be a BeaconRegion"];
         } else {
            
@@ -649,9 +649,9 @@
             NSNumber *measuredPower = nil;
             if (measuredPowerSpecifiedByUser) {
                 measuredPower = [command.arguments objectAtIndex: 1];
-                [[self getLogger] debugLog:@"Custom measuredPower specified by caller: %@", measuredPower];
+//                [[self getLogger] debugLog:@"Custom measuredPower specified by caller: %@", measuredPower];
             } else {
-                [[self getLogger] debugLog:@"[Default measuredPower will be used."];
+//                [[self getLogger] debugLog:@"[Default measuredPower will be used."];
             }
 
             CLBeaconRegion* beaconRegion = (CLBeaconRegion*)region;
@@ -664,7 +664,7 @@
             if (_peripheralManager.state == CBPeripheralManagerStatePoweredOn) {
                 [_peripheralManager startAdvertising:_advertisedPeripheralData];
             } else {
-                [[self getLogger] debugLog:@"Advertising is accepted, but won't start until peripheral manager is powered on."];
+//                [[self getLogger] debugLog:@"Advertising is accepted, but won't start until peripheral manager is powered on."];
             }
             
             CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
@@ -678,13 +678,13 @@
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
         
         if (_peripheralManager.state == CBPeripheralManagerStatePoweredOn) {
-            [[self getLogger] debugLog:@"Stopping the advertising. The peripheral manager might report isAdvertising true even after this, for a short period of time."];
+//            [[self getLogger] debugLog:@"Stopping the advertising. The peripheral manager might report isAdvertising true even after this, for a short period of time."];
 
             [_peripheralManager stopAdvertising];
             _advertisedBeaconRegion = nil;
             _advertisedPeripheralData = nil;
         } else {
-            [[self getLogger] debugLog:@"Peripheral manager isn`t powered on. There is nothing to stop."];
+//            [[self getLogger] debugLog:@"Peripheral manager isn`t powered on. There is nothing to stop."];
         }
         
         CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -731,7 +731,7 @@
 - (void)enableBluetooth: (CDVInvokedUrlCommand*)command {
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
         
-       [[self getLogger] debugLog:@"Enable Bluetooth not required on iOS."];
+//       [[self getLogger] debugLog:@"Enable Bluetooth not required on iOS."];
         
         CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [result setKeepCallbackAsBool:YES];
@@ -743,7 +743,7 @@
 - (void)disableBluetooth: (CDVInvokedUrlCommand*)command {
     [self _handleCallSafely:^CDVPluginResult *(CDVInvokedUrlCommand *command) {
         
-        [[self getLogger] debugLog:@"Disable Bluetooth not required on iOS."];
+//        [[self getLogger] debugLog:@"Disable Bluetooth not required on iOS."];
         
         CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [result setKeepCallbackAsBool:YES];
@@ -1050,17 +1050,17 @@
     return dict;
 }
 
-- (LMLogger*) getLogger {
-    
-    if (self.logger == nil) {
-        _logger = [[LMLogger alloc] init];
-    }
-    
-    [self.logger setDebugLogEnabled:self.debugLogEnabled];
-    [self.logger setDebugNotificationsEnabled:self.debugNotificationsEnabled];
-    
-    return self.logger;
-}
+//- (LMLogger*) getLogger {
+//    
+//    if (self.logger == nil) {
+//        _logger = [[LMLogger alloc] init];
+//    }
+//    
+//    [self.logger setDebugLogEnabled:self.debugLogEnabled];
+//    [self.logger setDebugNotificationsEnabled:self.debugNotificationsEnabled];
+//    
+//    return self.logger;
+//}
 
 - (NSString*) jsCallbackNameForSelector: (SEL) selector {
     NSString* fullName = NSStringFromSelector(selector);
@@ -1080,7 +1080,7 @@
         range = [shortName rangeOfString:@":"];
     };
     
-    [[self getLogger] debugLog:@"Converted %@ into %@", fullName, shortName];
+//    [[self getLogger] debugLog:@"Converted %@ into %@", fullName, shortName];
     return shortName;
 }
 
